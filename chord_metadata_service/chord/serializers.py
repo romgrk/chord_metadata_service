@@ -1,5 +1,6 @@
 from chord_lib.schemas.chord import CHORD_DATA_USE_SCHEMA
 from chord_metadata_service.restapi.serializers import GenericSerializer
+from chord_metadata_service.phenopackets.models import Phenopacket
 from jsonschema import Draft7Validator, Draft4Validator
 from rest_framework import serializers
 from chord_metadata_service.restapi.dats_schemas import get_dats_schema, CREATORS
@@ -18,6 +19,8 @@ __all__ = ["ProjectSerializer", "DatasetSerializer", "TableOwnershipSerializer"]
 
 
 class DatasetSerializer(GenericSerializer):
+    phenopackets = serializers.PrimaryKeyRelatedField(queryset=Phenopacket.objects.all(), many=True)
+
     # noinspection PyMethodMayBeStatic
     def validate_title(self, value):
         if len(value.strip()) < 3:

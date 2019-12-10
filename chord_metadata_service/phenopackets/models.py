@@ -367,7 +367,7 @@ class Phenopacket(models.Model):
 		help_text='Information about ontologies and references '
 		'used in the phenopacket.')
 	dataset = models.ForeignKey("chord.Dataset", on_delete=models.CASCADE,
-		blank=True, null=True)
+		blank=True, null=True, related_name='phenopackets')
 	extra_properties = JSONField(blank=True, null=True,
 		help_text='Extra properties that are not supported by current schema')
 	created = models.DateTimeField(auto_now=True)
